@@ -1,0 +1,25 @@
+From 92a3d1cdd5d28209ba50f6e0c6404bc9a4c89ebe Mon Sep 17 00:00:00 2001
+From: Chris Wyse <cwyse@cox.net>
+Date: Sun, 8 Apr 2018 05:53:11 -0400
+Subject: [PATCH] Support (slow) flash 128KB read via USBTinyISP.
+
+---
+ usbtiny.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/usbtiny.c b/usbtiny.c
+index b6bc7cc..ae5a8bf 100644
+--- a/usbtiny.c
++++ b/usbtiny.c
+@@ -557,7 +557,7 @@ void usbtiny_initpgm ( PROGRAMMER* pgm )
+   /* Optional Functions */
+   pgm->powerup	        = NULL;
+   pgm->powerdown	= usbtiny_powerdown;
+-  pgm->paged_load	= usbtiny_paged_load;
++  //pgm->paged_load	= usbtiny_paged_load;
+   pgm->paged_write	= usbtiny_paged_write;
+   pgm->set_sck_period	= usbtiny_set_sck_period;
+   pgm->setup            = usbtiny_setup;
+-- 
+1.9.1
+

@@ -20,28 +20,20 @@ cd objdir
 PREFIX=`pwd`
 cd -
 
-if [[ ! -f avrdude-6.3.tar.gz  ]] ;
+if [[ ! -f libftdi1-1.4.tar.bz2  ]] ;
 then
-	wget http://download.savannah.gnu.org/releases/avrdude/avrdude-6.3.tar.gz
+	wget http://www.intra2net.com/en/developer/libftdi/download/libftdi1-1.4.tar.bz2
 fi
 
-tar xfv avrdude-6.3.tar.gz
+tar xfv libftdi1-1.4.tar.bz2
 
-cd avrdude-6.3
-for p in ../avrdude-6.3-patches/*.patch; do echo Applying $p; patch -p0 < $p; done
-autoreconf --force --install
-./bootstrap
-
-CFLAGS="$CFLAGS -I$PREFIX/include -I${PREFIX}/include/libftdi1 -I$PREFIX/include/libusb-1.0/ -L$PREFIX/lib"
-CXXFLAGS="$CXXFLAGS -I$PREFIX/include -I${PREFIX}/include/libftdi1 -I$PREFIX/include/libusb-1.0/ -L$PREFIX/lib"
-LDFLAGS="$LDFLAGS -I$PREFIX/include -I$PREFIX/include -L$PREFIX/lib -lftdi1"
-CONFARGS="--prefix=$PREFIX --enable-linuxgpio"
+cd libftdi1-1.4
+cmake -DCMAKE_INSTALL_PREFIX=PATH=$PREFIX -DCMAKE_PREFIX_PATH="${PREFIX}/lib/pkgconfig" .
 if [[ $CROSS_COMPILE != "" ]] ; then
-  CONFARGS="$CONFARGS --host=$CROSS_COMPILE_HOST"
+  echo "No support added or tested for cross-compiling libftdi1."
+  exit 1
 fi
-CFLAGS="-w -O2 $CFLAGS" CXXFLAGS="-w -O2 $CXXFLAGS" LDFLAGS="-s $LDFLAGS" ./configure $CONFARGS
-
-make
+make all
 make install
 cd ..
 

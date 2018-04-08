@@ -1,4 +1,6 @@
-## avrdude build scripts for Arduino/Genuino
+## avrdude build scripts for Arduino/Genuino 
+
+### **** This fork adds support for 128KB flash reads via USBTinyISP, and changes to include libftdi1 support.  These changes are only supported on Linux. ****
 
 This is the build script for the avrdude tool used in the [Arduino IDE](http://arduino.cc/).
 
