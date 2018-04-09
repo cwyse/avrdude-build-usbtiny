@@ -23,7 +23,7 @@ If you find any package missing from the following list, please open an issue at
 #### Debian requirements
 
 ```bash
-sudo apt-get install build-essential bison subversion zip automake flex pkg-config
+sudo apt-get install build-essential bison subversion zip automake flex pkg-config libftdi1-dev libtool libelf-dev wget
 ```
 
 #### Mac OSX requirements
