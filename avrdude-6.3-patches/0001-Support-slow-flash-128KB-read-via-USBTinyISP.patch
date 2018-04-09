@@ -9,8 +9,8 @@ Subject: [PATCH] Support (slow) flash 128KB read via USBTinyISP.
 
 diff --git a/usbtiny.c b/usbtiny.c
 index b6bc7cc..ae5a8bf 100644
---- a/usbtiny.c
-+++ b/usbtiny.c
+--- usbtiny.c
++++ usbtiny.c
 @@ -557,7 +557,7 @@ void usbtiny_initpgm ( PROGRAMMER* pgm )
    /* Optional Functions */
    pgm->powerup	        = NULL;

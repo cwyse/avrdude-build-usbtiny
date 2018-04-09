@@ -19,6 +19,7 @@ OUTPUT_VERSION=6.3.0-arduino9
 
 export OS=`uname -o || uname`
 export TARGET_OS=$OS
+SHARED_LIBRARIES=0
 
 if [[ $CROSS_COMPILE == "mingw" ]] ; then
 
@@ -41,6 +42,7 @@ elif [[ $OS == "GNU/Linux" ]] ; then
     echo Linux Machine not supported: $MACHINE
     exit 1
   fi
+  SHARED_LIBRARIES=1
 
 elif [[ $OS == "Msys" || $OS == "Cygwin" ]] ; then
 
@@ -69,12 +71,15 @@ else
 
 fi
 
-rm -rf avrdude-6.3 libftdi1-1.4 libusb-1.0.20 libusb-compat-0.1.5 libusb-win32-bin-1.2.6.0 libelf-0.8.13 objdir
+if [ ${SHARED_LIBRARIES} -eq 0 ]; then
+  rm -rf avrdude-6.3 libftdi1-1.4 libusb-1.0.20 libusb-compat-0.1.5 libusb-win32-bin-1.2.6.0 libelf-0.8.13 objdir
 
-./libusb-1.0.20.build.bash
-./libusb-compat-0.1.5.build.bash
-./libelf-0.8.13.build.bash
-./libftdi1-1.4.build.bash
+  ./libusb-1.0.20.build.bash
+  ./libusb-compat-0.1.5.build.bash
+  ./libelf-0.8.13.build.bash
+  ./libftdi1-1.4.build.bash
+fi
+
 ./avrdude-6.3.build.bash
 
 # if producing a windows build, compress as zip and

@@ -28,7 +28,8 @@ fi
 tar xfv libftdi1-1.4.tar.bz2
 
 cd libftdi1-1.4
-cmake -DCMAKE_INSTALL_PREFIX=PATH=$PREFIX .
+patch -p1 < ../libftdi1-1.4-patches/0001-Add-option-to-disable-shared-library-generation.patch
+cmake -DCMAKE_PREFIX_PATH=${PREFIX}/lib/pkgconfig -DCMAKE_INSTALL_PREFIX=$PREFIX .
 if [[ $CROSS_COMPILE != "" ]] ; then
   echo "No support added or tested for cross-compiling libftdi1."
   exit 1

@@ -32,9 +32,12 @@ for p in ../avrdude-6.3-patches/*.patch; do echo Applying $p; patch -p0 < $p; do
 autoreconf --force --install
 ./bootstrap
 
-CFLAGS="$CFLAGS -I$PREFIX/include -I${PREFIX}/include/libftdi1 -I$PREFIX/include/libusb-1.0/ -L$PREFIX/lib"
-CXXFLAGS="$CXXFLAGS -I$PREFIX/include -I${PREFIX}/include/libftdi1 -I$PREFIX/include/libusb-1.0/ -L$PREFIX/lib"
-LDFLAGS="$LDFLAGS -I$PREFIX/include -I$PREFIX/include -L$PREFIX/lib -lftdi1"
+SHARED_LIBRARIES=0
+if [ ${SHARED_LIBRARIES} -eq 1 ]; then
+  CFLAGS="$CFLAGS -I$PREFIX/include -I${PREFIX}/include/libftdi1 -I$PREFIX/include/libusb-1.0/ -L$PREFIX/lib"
+  CXXFLAGS="$CXXFLAGS -I$PREFIX/include -I${PREFIX}/include/libftdi1 -I$PREFIX/include/libusb-1.0/ -L$PREFIX/lib"
+  LDFLAGS="$LDFLAGS -I$PREFIX/include -I$PREFIX/include -L$PREFIX/lib "
+fi
 CONFARGS="--prefix=$PREFIX --enable-linuxgpio"
 if [[ $CROSS_COMPILE != "" ]] ; then
   CONFARGS="$CONFARGS --host=$CROSS_COMPILE_HOST"
