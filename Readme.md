@@ -2,6 +2,26 @@
 
 ### **** This fork adds support for 128KB flash reads via USBTinyISP, and changes to include libftdi1 support.  These changes are only supported on Linux. ****
 
+The original repository has been modified in the following ways:
+  1. Only Linux (Ubuntu 16.04) support has been tested
+  2. Shared libraries are used instead of static
+  3. Setup script added to install necessary packages
+  4. avrdude source has been patched to support 128K reads
+  5. Firmware backup script for Prusa-i3 added
+  6. The binary tar.bz2 file for Linux has been included
+  7. The original firmware files from the Prusa-i3 have been added
+
+To clone original repository:  
+  git clone https://github.com/arduino/avrdude-build-script.git
+
+To clone this repository:
+  git clone git@github.com:cwyse/avrdude-build-usbtiny.git
+
+The text below this point is from the original repository, with
+some minor updates.
+
+################################################################
+
 This is the build script for the avrdude tool used in the [Arduino IDE](http://arduino.cc/).
 
 The latest version available is 6.3.
@@ -21,6 +41,9 @@ Setup has been done on partially set up development machines.
 If you find any package missing from the following list, please open an issue at once!
 
 #### Debian requirements
+
+You need to be running at least Ubuntu 16.04, since its repository
+provides libftdi1 & libftdi1-dev.
 
 ```bash
 sudo apt-get install build-essential bison subversion zip automake flex pkg-config libftdi1-dev libtool libelf-dev wget
